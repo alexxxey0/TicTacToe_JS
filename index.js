@@ -39,13 +39,13 @@ function player_move(sqr) {
             game_ended = true;
         }
     })
+    if (game_ended) return;
 
     if (empty_squares === 0) {
         text.innerText = "The game ended in a draw!";
         info_text.append(text);
         game_ended = true;
     }
-
     if (game_ended) return;
 
     let o_img = document.createElement("img");
