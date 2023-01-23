@@ -7,27 +7,34 @@
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <header>
-        <h1>TIC TAC TOE</h1>
-    </header>
-    <table>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-    </table>
-    <span id="info-text"></span>
+    <div id="main">
+        <div>
+            <table>
+                <tr>
+                    <td id="corner1"></td>
+                    <td></td>
+                    <td id="corner2"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td id="corner3"></td>
+                    <td></td>
+                    <td id="corner4"></td>
+                </tr>
+            </table>
+            <div id="info-text"></div>
+        </div>
+        <div id="stats">
+            <h2 id="won">Games won: 0</h2>
+            <h2 id="lost">Games lost: 0</h2>
+            <h2 id="draw">Games ended in a draw: 0</h2>
+            <button type="button" id="reset-button">Reset</button>
+        </div>
+    </div>
     <script src="index.js"></script>
 </body>
 </html>

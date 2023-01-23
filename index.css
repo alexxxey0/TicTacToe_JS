@@ -3,8 +3,8 @@
     padding: 0;
 }
 
-h1 {
-    text-align: center;
+body {
+    background-color: black;
 }
 
 table {
@@ -14,6 +14,78 @@ table {
 td {
     width: 200px;
     height: 200px;
-    outline: 2px solid black;
+    outline: 2px solid white;
+}
 
+:root {
+    --border-radius: 20%;
+}
+
+#corner1 {
+    border-top-left-radius: var(--border-radius);
+}
+
+#corner2 {
+    border-top-right-radius: var(--border-radius);
+}
+
+#corner3 {
+    border-bottom-left-radius: var(--border-radius);
+}
+
+#corner4 {
+    border-bottom-right-radius: var(--border-radius);
+}
+
+#info-text {
+    color: white;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 30px;
+    margin-top: 2%;
+    position: relative;
+}
+
+#info-text p {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+#main {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 3%;
+}
+
+#reset-button {
+    font-size: 25px;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 5%;
+}
+
+#reset-button:active {
+    background-color: #d4d4d4;
+}
+
+#stats {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    align-items: center;
+    margin-bottom: 2%;
+}
+
+h2 {
+    color: white;
+    margin-top: 5%;
+}
+
+#draw {
+    margin-bottom: auto;
 }
