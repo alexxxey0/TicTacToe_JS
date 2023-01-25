@@ -67,6 +67,7 @@ td {
     padding: 15px;
     border-radius: 10px;
     margin-top: 5%;
+    cursor: pointer;
 }
 
 #reset-button:active {
