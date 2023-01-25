@@ -39,6 +39,7 @@ function player_move(sqr) {
         element = shuffleArray(element);
     }
     win_squares = shuffleArray(win_squares);
+    console.log(win_squares);
 
     let x_img = document.createElement("img");
     x_img.setAttribute("src", "red_x.png");
@@ -159,9 +160,8 @@ function player_move(sqr) {
                 for (let number of element) {
                     if (!taken(squares[number])) empty_in_a_row++;
                 }
-                console.log(empty_in_a_row);
 
-                if (empty_in_a_row === 2) {
+                if (empty_in_a_row >= 2) {
                     for (let number of element) {
                         if (!taken(squares[number])) {
                             computer_sqr = squares[number];
