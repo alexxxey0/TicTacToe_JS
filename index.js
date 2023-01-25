@@ -34,14 +34,11 @@ function shuffleArray(array) {
     return array;
 }
 
-
-for (let element of win_squares) {
-    element = shuffleArray(element);
-}
-win_squares = shuffleArray(win_squares);
-
-
 function player_move(sqr) {
+    for (let element of win_squares) {
+        element = shuffleArray(element);
+    }
+    win_squares = shuffleArray(win_squares);
 
     let x_img = document.createElement("img");
     x_img.setAttribute("src", "red_x.png");
@@ -225,5 +222,3 @@ function reset() {
 
 const reset_button = document.querySelector("#reset-button");
 reset_button.addEventListener("click", function() {reset()});
-
-
