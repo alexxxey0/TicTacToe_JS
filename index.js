@@ -9,7 +9,11 @@ let won = 0;
 let lost = 0;
 let draw = 0;
 
-const win_squares = [
+function taken(square) {
+    return square.classList.contains("taken_x") || square.classList.contains("taken_o");
+}
+
+let win_squares = [
     [0, 1, 2],
     [3, 4, 5],
     [6, 7, 8],
@@ -19,6 +23,22 @@ const win_squares = [
     [0, 4, 8],
     [2, 4, 6]
 ];
+
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+    }
+    return array;
+}
+
+
+for (let element of win_squares) {
+    element = shuffleArray(element);
+}
+win_squares = shuffleArray(win_squares);
 
 
 function player_move(sqr) {
@@ -81,20 +101,28 @@ function player_move(sqr) {
     let computer_sqr;
     let random_num_0_3 = Math.floor(Math.random() * 4); // random integer from 0 to 3
 
-    if (empty_squares === 8) { // computer's first move
+    if (empty_squares === 8) {
+        // this is computer's first move
+        // if player places its X in the center, the computer places its O in one of the 4 squares (randomly)
+        // otherwise, computer places its O in the center
         if (!squares[4].classList.contains("taken_x")) computer_sqr = squares[4];
         else computer_sqr = corners[random_num_0_3];
     } else {
-        for (let element of win_squares) {
+        // for the next moves, computer's logic is as follows
+        // 1. Can I win on this turn by placing my O? (ie, do I have two O's in a row?) If so, do it
+        // 2. Can the player win on the next move by placing his X? If so, prevent him from winning
+        // If neither of these is true, then computer places his O such that it's on the same row as some other O, and the third square is empty (to make at least two O's in a row)
+        for (let element of win_squares) { 
             let break_outer = false;
             let o_in_a_row = 0;
 
             for (let number of element) {
                 if (squares[number].classList.contains("taken_o")) o_in_a_row++;
             }
+            
             if (o_in_a_row === 2) { // if computer is 1 move away from winning, win
                 for (let number of element) {
-                    if (!squares[number].classList.contains("taken_o") && !squares[number].classList.contains("taken_x")) {
+                    if (!taken(squares[number])) {
                         computer_sqr = squares[number];
                         break_outer = true;
                         break;
@@ -104,6 +132,7 @@ function player_move(sqr) {
             }
             if (break_outer) break;
         }
+
         if (computer_sqr === undefined) {
             for (let element of win_squares) {
                 let break_outer = false;
@@ -114,7 +143,7 @@ function player_move(sqr) {
 
                 if (x_in_a_row === 2) { // if player is 1 move away from winning, prevent player from winning
                     for (let number of element) {
-                        if (!squares[number].classList.contains("taken_o") && !squares[number].classList.contains("taken_x")) {
+                        if (!taken(squares[number])) {
                             computer_sqr = squares[number];
                             break_outer = true;
                             break;
@@ -124,27 +153,27 @@ function player_move(sqr) {
                 if (break_outer) break;
             }
         }
-        console.log(computer_sqr);
+
         if (computer_sqr === undefined) {
             for (let element of win_squares) {
+                let break_outer = false;
                 let empty_in_a_row = 0;
 
                 for (let number of element) {
-                    if (!squares[number].classList.contains("taken_x") && !squares[number].classList.contains("taken_o")) empty_in_a_row++;
+                    if (!taken(squares[number])) empty_in_a_row++;
                 }
+                console.log(empty_in_a_row);
 
-                let random_num_0_1 = Math.floor(Math.random() * 2);
                 if (empty_in_a_row === 2) {
                     for (let number of element) {
-                        if (!squares[number].classList.contains("taken_x") && !squares[number].classList.contains("taken_o")) {
-                            if (random_num_0_1 === 0 || computer_sqr === undefined) {
-                                computer_sqr = squares[number];
-                                console.log(computer_sqr);
-                                break;
-                            }
+                        if (!taken(squares[number])) {
+                            computer_sqr = squares[number];
+                            break_outer = true;
+                            break;
                         }
                     }
                 }
+                if (break_outer) break;
             }  
         }      
     }
