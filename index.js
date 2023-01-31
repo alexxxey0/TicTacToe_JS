@@ -92,10 +92,6 @@ function player_move(sqr) {
     o_img.style.display = "block";
     o_img.style.margin = "auto";
 
-    /*do {
-        let random_num = Math.floor(Math.random() * 9);  // Returns a random integer from 0 to 8
-        var computer_sqr = squares[random_num];
-    } while ((computer_sqr.classList.contains("taken_x") || computer_sqr.classList.contains("taken_o")) && empty_squares > 1);*/
     let computer_sqr;
     let random_num_0_3 = Math.floor(Math.random() * 4); // random integer from 0 to 3
 
@@ -109,7 +105,7 @@ function player_move(sqr) {
         // for the next moves, computer's logic is as follows
         // 1. Can I win on this turn by placing my O? (ie, do I have two O's in a row?) If so, do it
         // 2. Can the player win on the next move by placing his X? If so, prevent him from winning
-        // If neither of these is true, then computer places his O such that it's on the same row as some other O, and the third square is empty (to make at least two O's in a row)
+        // If neither of these is true, then computer places his O randomly
         for (let element of win_squares) { 
             let break_outer = false;
             let o_in_a_row = 0;
@@ -153,25 +149,11 @@ function player_move(sqr) {
         }
 
         if (computer_sqr === undefined) {
-            for (let element of win_squares) {
-                let break_outer = false;
-                let empty_in_a_row = 0;
+            do {
+                var random_num_0_8 = Math.floor(Math.random() * 9);  // Returns a random integer from 0 to 8
+            } while (taken(squares[random_num_0_8]) && empty_squares > 1);
 
-                for (let number of element) {
-                    if (!taken(squares[number])) empty_in_a_row++;
-                }
-
-                if (empty_in_a_row >= 2) {
-                    for (let number of element) {
-                        if (!taken(squares[number])) {
-                            computer_sqr = squares[number];
-                            break_outer = true;
-                            break;
-                        }
-                    }
-                }
-                if (break_outer) break;
-            }  
+            computer_sqr = squares[random_num_0_8];
         }      
     }
 
